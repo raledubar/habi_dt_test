@@ -47,7 +47,7 @@ http://127.0.0.1:5000/inmuebles?city=pereira&year=2020&state=pre_venta
 
 ## Propuesta servicio de me gusta
 
-Propongo la creación de dos tablas, una tabla de usuarios registrados y una tabla de likes, con la cual sabremos a que usuario le gusta la propiedad. Usando las llaves foraneas (id en Users y property_id en status_history)
+Propongo la creación de dos tablas, una tabla de usuarios registrados y una tabla de likes, con la cual sabremos a que usuario le gusta la propiedad. Usando las llaves foraneas (id en Users y property_id en Property)
 
 <img src="modelo_propuesto.png" title="Modelo propuesto">
 
