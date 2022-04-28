@@ -16,6 +16,7 @@ def get_inmuebles_api():
         entity = dict(resource)
         inmuebles.append(entity)
     if args:
+        handlers.save_filters(args)
         resources = []
         for resource in inmuebles:
             if handlers.check_filters(
