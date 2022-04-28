@@ -1,4 +1,6 @@
 import pymysql
+import logging
+import json
 
 
 def get_connection():
@@ -53,3 +55,13 @@ def check_filters(resource, filters):
         else:
             checks.append(False)
     return all(checks)
+
+
+def save_filters(filters):
+    try:
+        with open("filters.json", 'w') as f:
+            json.dump(filters, f)
+    except Exception:
+        logging.error(
+            "YOU CAN NOT SAVE PARAMETERS IN JSON FILE:"
+        )
