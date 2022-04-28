@@ -1,6 +1,5 @@
 import pytest
 from app import app
-from handlers import check_filters
 import json
 
 
@@ -8,6 +7,16 @@ import json
 def client():
     client = app.test_client()
     yield client
+
+
+def test_allowed_states_in_get(client):
+    allowed_states = (
+        "pre_venta", "en_venta", "vendido"
+    )
+    resp = client.get('/inmuebles')
+    resources = json.loads(resp.data).get('inmuebles')
+    for resource in resources:
+        assert resource.get('state') in allowed_states
 
 
 def test_get_resources(client):
@@ -36,10 +45,9 @@ def test_triple_filters(client):
     assert resp.status_code == 200
     assert type(resources) is list
     for resource in resources:
-        assert check_filters(
-            resource=resource,
-            filters=filters
-        )
+        assert resource.get('city') == 'pereira'
+        assert resource.get('year') == 2020
+        assert resource.get('state') == 'pre_venta'
 
 
 def test_single_filter(client):
@@ -53,7 +61,4 @@ def test_single_filter(client):
     assert type(resources[0] is dict)
     assert resp.status_code == 200
     assert type(resources) is list
-    assert check_filters(
-        resource=resources[0],
-        filters=filter
-    )
+    assert resources[0].get('state') == "en_venta"
